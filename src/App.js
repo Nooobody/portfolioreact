@@ -29,9 +29,9 @@ function Square(index) {
     }
   }
 
+  actualSquares = actualSquares.concat(squares);
   return (<svg width="100%" height="100%">
     {actualSquares.map(square => makeSquare(square[0], square[1], square[2]))}
-    {squares.map(square => makeSquare(square[0], square[1], square[2]))}
   </svg>);
 }
 
@@ -49,6 +49,7 @@ class App extends Component {
       "Future",
       "Hobbies"
     ],
+    experiences: {},
     gradients: [
       "linear-gradient(#f0f0f0 95%, #dfe74d)",
       "linear-gradient(#dfe74d, #95e74d)",
@@ -71,6 +72,13 @@ class App extends Component {
     ]
   }
 
+  toggleExp = (e, index) => {
+    e.stopPropagation();
+    this.setState({
+      experiences: Object.assign({}, this.state.experiences, {[index]: !this.state.experiences[index]})
+    });
+  }
+
   renderComponent = (header, index) => {
     return (
       <div className="row h-100" style={{backgroundImage: this.state.gradients[index]}}>
@@ -81,9 +89,20 @@ class App extends Component {
           <div className="card">
             <div className="card-body">
               <h2 className="card-title">{header}</h2>
-              {TEXTS[index].map((text, index) => <p key={index} className="card-text">{text}</p>)}
+              {index !== 5 ? TEXTS[index].map((text, index) => <p key={index} className="card-text">{text}</p>) : null}
             </div>
           </div>
+          {index === 5 ? TEXTS[index].map((text, index, arr) => {
+            if (index % 2 === 1) return null;
+            return (
+              <div className="mt-2 card">
+                <div className="card-body pointer" onClick={(e) => this.toggleExp(e, index)}>
+                  <h5 className="card-title"><i className={`fa fa-chevron-${this.state.experiences[index] ? 'down' : 'right'}`}></i> {text}</h5>
+                  {this.state.experiences[index] ? <p className="card-text">{arr[index + 1]}</p> : null}
+                </div>
+              </div>
+            )
+          }) : null}
         </div>
       </div>
     )

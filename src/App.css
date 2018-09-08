@@ -12,3 +12,7 @@ body {
   top: 50px;
   right: 50px;
 }
+
+.pointer {
+  cursor: pointer;
+}
