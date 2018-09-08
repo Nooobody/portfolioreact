@@ -74,6 +74,7 @@ export const TEXTS = [
   [
     "Ever since I was 4 years old, I've been on a computer playing games. That hasn't changed at all since then, but I've had some new additions to my hobbies along the way.",
     "I've been doing cycling since I was a kid. I had to drive my bicycle everyday to school and that was my only source of exercise outside of school. I do like cycling, don't get me wrong. I still like to go out on a stroll every now and then.",
+    "We've always had a dog in our family. It's always lovely to play around with a dog.",
     "Recently I've started doing Yoga and I also started learning how to play the Piano. I also play board games with my friends. it's always a pleasure to spend some time with friends."
   ]
 ]

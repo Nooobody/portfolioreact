@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Parallax from 'react-springy-parallax';
 import './App.css';
 import General from './General.png';
+import Hobbies from './Hobbies.png';
 import { TEXTS } from './texts';
 
 function Square(index) {
@@ -68,7 +69,7 @@ class App extends Component {
       Square(4),
       Square(5),
       Square(6),
-      <img src={General} className="img-fluid w-75 m-5" alt="General" />,
+      <img src={Hobbies} className="img-fluid w-75 m-5" alt="General" />,
     ]
   }
 
