@@ -36,38 +36,38 @@ function Square(index) {
   </svg>);
 }
 
+// Possible color scheme:
+// Primary: #ffeb3b
+// Primary-L: #ffff72
+// Primary-D: #c8b900
+// Secondary: #65b5f6
+// Secondary-L: #9be7ff
+// Secondary-D: #2286c3
+
 class App extends Component {
 
   state = {
-    pages: 8,
     pageHeaders: [
       "Welcome",
+      "Work Experience",
+      "Featured Hobby Projects",
       "Beginning (2009-2012)",
       "Python (~2012)",
       "C++ (2013-2015)",
       "Web (2015-Current)",
-      "Work Experience",
       "Future",
       "Hobbies"
     ],
     experiences: {},
-    gradients: [
-      "linear-gradient(#f0f0f0 95%, #dfe74d)",
-      "linear-gradient(#dfe74d, #95e74d)",
-      "linear-gradient(#95e74d, #4de753)",
-      "linear-gradient(#4de753, #4de7b9)",
-      "linear-gradient(#4de7b9, #588e7e)",
-      "linear-gradient(#588e7e, #616161)",
-      "linear-gradient(#616161 95%, #e2e2e2)",
-      "linear-gradient(#e2e2e2, #e2e2e2)"
-    ],
+    features: {},
     images: [
-      <img src={General} className="img-fluid w-75 m-5" alt="General" />,
+      <img src={General} className="img-fluid w-50 m-5" alt="General" />,
+      null,
+      null,
       Square(1),
       Square(2),
       Square(3),
       Square(4),
-      Square(5),
       Square(6),
       <img src={Hobbies} className="img-fluid w-75 m-5" alt="General" />,
     ]
@@ -80,30 +80,74 @@ class App extends Component {
     });
   }
 
+  toggleFeature = (e, index) => {
+    e.stopPropagation();
+    this.setState({
+      features: Object.assign({}, this.state.features, {[index]: !this.state.features[index]})
+    });
+  }
+
+  renderTexts = (texts, index, isTextBody) => {
+    if (!isTextBody) {
+      if (index === 1) {
+        return texts.map((text, ind, arr) => {
+          if (ind % 2 === 1) return null;
+          return (
+            <div className="mt-2 card" onClick={(e) => e.stopPropagation()}>
+              <div className="card-body">
+                <h5 className="card-title pointer" onClick={(e) => this.toggleExp(e, ind)}><i className={`fa fa-chevron-${this.state.experiences[ind] ? 'down' : 'right'}`}></i> {text}</h5>
+                {this.state.experiences[ind] ? <p className="card-text">{arr[ind + 1]}</p> : null}
+              </div>
+            </div>
+          )
+        })
+      }
+      else if (index === 2) {
+        return texts.map((text, ind, arr) => {
+          if (typeof(text) !== 'string') return null;
+          let links = [];
+          for (let i = ind + 1; i < arr.length; i++) {
+            if (typeof(arr[i]) !== 'string') {
+              links.push(arr[i]);
+            }
+            else {
+              break;
+            }
+          }
+
+          return (
+            <div className="mt-2 card" onClick={(e) => e.stopPropagation()}>
+              <div className="card-body">
+                <h5 className="card-title pointer" onClick={(e) => this.toggleFeature(e, ind)}><i className={`fa fa-chevron-${this.state.features[ind] ? 'down' : 'right'}`}></i> {text}</h5>
+                {this.state.features[ind] ?
+                  links.map(link => <p className="card-text">{link}</p>)
+                : null}
+              </div>
+            </div>
+          )
+        });
+      }
+    }
+    else if (index !== 1 && index !== 2) {
+      return texts.map((text, ind) => <p key={ind} className="card-text">{text}</p>)
+    }
+    return null;
+  }
+
   renderComponent = (header, index) => {
     return (
-      <div className="row h-100" style={{backgroundImage: this.state.gradients[index]}}>
+      <div className="row h-100" style={{backgroundColor: "#ffeb3b"}}>
         <div className="col-4 h-100">
           {this.state.images[index]}
         </div>
         <div className="col-6 p-5 h-100">
-          <div className="card">
+          <div className="card" onClick={(e) => e.stopPropagation()}>
             <div className="card-body">
               <h2 className="card-title">{header}</h2>
-              {index !== 5 ? TEXTS[index].map((text, index) => <p key={index} className="card-text">{text}</p>) : null}
+              {this.renderTexts(TEXTS[index], index, true)}
             </div>
           </div>
-          {index === 5 ? TEXTS[index].map((text, index, arr) => {
-            if (index % 2 === 1) return null;
-            return (
-              <div className="mt-2 card">
-                <div className="card-body pointer" onClick={(e) => this.toggleExp(e, index)}>
-                  <h5 className="card-title"><i className={`fa fa-chevron-${this.state.experiences[index] ? 'down' : 'right'}`}></i> {text}</h5>
-                  {this.state.experiences[index] ? <p className="card-text">{arr[index + 1]}</p> : null}
-                </div>
-              </div>
-            )
-          }) : null}
+          {this.renderTexts(TEXTS[index], index, false)}
         </div>
       </div>
     )
@@ -111,13 +155,13 @@ class App extends Component {
 
   renderParallax = () => {
     return (
-      <Parallax ref="parallax" pages={this.state.pages}>
+      <Parallax ref="parallax" pages={this.state.pageHeaders.length}>
         {this.state.pageHeaders.map((header, index) => (
-          <Parallax.Layer key={index} offset={index} onClick={() => this.refs.parallax.scrollTo(index + 1)}>
+          <Parallax.Layer key={index} offset={index} factor={2} onClick={() => this.refs.parallax.scrollTo(index + 1)}>
             {this.renderComponent(header, index)}
           </Parallax.Layer>
         ))}
-        <Parallax.Layer offset={0} speed={-1} factor={8} style={{pointerEvents: 'none'}}>
+        <Parallax.Layer offset={0} speed={-1} factor={1} style={{pointerEvents: 'none'}}>
           <nav className="card nav flex-column sidemenu" style={{pointerEvents: 'initial'}}>
             {this.state.pageHeaders.map((header, index) => (
               <a key={index} href="#" className='nav-link' onClick={() => this.refs.parallax.scrollTo(index)}>
