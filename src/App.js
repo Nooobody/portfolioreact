@@ -73,7 +73,8 @@ class App extends Component {
         "I am Juho Keski-Rahkonen, a Full-stack Web developer. You have come upon my portfolio website, which portrays my coding journey.",
         "I am a self-taught coder. I've been doing coding as a hobby for over 9 years now and still my passion runs deep. I'm always on the lookout for new challenges that interest me.",
         "Feel free to navigate either by using the sidemenu, scrolling down or by just clicking anywhere.",
-        "The source code for this website can be found at "
+        "The source code for this website can be found at the link below.",
+        <a href="https://github.com/Nooobody/portfolioreact">Source for this website</a>
       ],
       [
         "At the age of 16, I found out about a sandbox game called Garry's mod. It gave you the freedom to build almost anything, and with a certain addon you could also code anything you wanted.",
