@@ -20,3 +20,9 @@ p, a {
 .pointer {
   cursor: pointer;
 }
+
+@media screen and (max-width: 800px) {
+  .sidemenu {
+    display: none;
+  }
+}

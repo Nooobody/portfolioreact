@@ -2,8 +2,19 @@ import React, { Component } from 'react';
 import Parallax from 'react-springy-parallax';
 import './App.css';
 import General from './General.png';
-import Hobbies from './Hobbies.png';
 import { TEXTS } from './texts';
+
+import lAngular from './logos/angular-icon-1.svg';
+import lCpp from './logos/c.svg';
+import lElectron from './logos/electron-4.svg';
+import lGmod from './logos/garry-s-mod.svg';
+import lLua from './logos/lua.svg';
+import lNode from './logos/nodejs.svg';
+import lPython from './logos/python-5.svg';
+import lReact from './logos/react.svg';
+import lRedux from './logos/redux.svg';
+import lVue from './logos/vue-9.svg';
+import lRor from './logos/rails-1.svg';
 
 function Square(index) {
 
@@ -32,7 +43,9 @@ function Square(index) {
 
   actualSquares = actualSquares.concat(squares);
   return (<svg width="100%" height="100%">
-    {actualSquares.map(square => makeSquare(square[0], square[1], square[2]))}
+    <g transform="translate(00 50) scale(1.0)">
+      {actualSquares.map(square => makeSquare(square[0], square[1], square[2]))}
+    </g>
   </svg>);
 }
 
@@ -51,9 +64,9 @@ class App extends Component {
       "Welcome",
       "Work Experience",
       "Featured Hobby Projects",
-      "Beginning (2009-2012)",
-      "Python (~2012)",
-      "C++ (2013-2015)",
+      "Beginning (2009-2011)",
+      "Python (2011-2012)",
+      "C++ (2012-2015)",
       "Web (2015-Current)",
       "Future",
       "Hobbies"
@@ -61,16 +74,68 @@ class App extends Component {
     experiences: {},
     features: {},
     images: [
+      null,
+      null,
+      null,
+      1,
+      2,
+      3,
+      4,
+      6,
       <img src={General} className="img-fluid w-50 m-5" alt="General" />,
+    ],
+    logos: [
+      [
+        lReact,
+        lRedux,
+        lVue,
+        lElectron,
+        lAngular,
+        lNode
+      ],
       null,
       null,
-      Square(1),
-      Square(2),
-      Square(3),
-      Square(4),
-      Square(6),
-      <img src={Hobbies} className="img-fluid w-75 m-5" alt="General" />,
+      [
+        lGmod,
+        lLua
+      ],
+      [
+        lPython
+      ],
+      [
+        lCpp
+      ],
+      [
+        lReact,
+        lRedux,
+        lVue,
+        lRor,
+        lAngular,
+        lNode
+      ],
+      null,
+      null
     ]
+  }
+
+  componentDidMount() {
+    let squares = this.state.images.filter(img => typeof(img) === 'number');
+    this.generateSquare(squares);
+  }
+
+  generateSquare = (squares) => {
+    let square = squares.shift();
+    let index = this.state.images.indexOf(square);
+
+    let newImages = this.state.images.slice();
+    newImages.splice(index, 1, Square(square));
+    this.setState({
+      images: newImages
+    }, () => {
+      if (squares.length) {
+        this.generateSquare(squares);
+      }
+    });
   }
 
   toggleExp = (e, index) => {
@@ -87,13 +152,29 @@ class App extends Component {
     });
   }
 
+  renderLogos = (index) => {
+    if (index === 7) {
+      return <i className="fa fa-question m-2" style={{fontSize: '60px'}}></i>
+    }
+
+    let logos = this.state.logos[index];
+
+    if (logos) {
+      return logos.map((logo, ind) => (
+        <img key={ind} className="m-1 mt-3" src={logo} alt="Logo" width="auto" height="50px" />
+      ));
+    }
+
+    return null;
+  }
+
   renderTexts = (texts, index, isTextBody) => {
     if (!isTextBody) {
       if (index === 1) {
         return texts.map((text, ind, arr) => {
           if (ind % 2 === 1) return null;
           return (
-            <div className="mt-2 card" onClick={(e) => e.stopPropagation()}>
+            <div key={ind} className="mt-2 card" onClick={(e) => e.stopPropagation()}>
               <div className="card-body">
                 <h5 className="card-title pointer" onClick={(e) => this.toggleExp(e, ind)}><i className={`fa fa-chevron-${this.state.experiences[ind] ? 'down' : 'right'}`}></i> {text}</h5>
                 {this.state.experiences[ind] ? <p className="card-text">{arr[ind + 1]}</p> : null}
@@ -116,11 +197,11 @@ class App extends Component {
           }
 
           return (
-            <div className="mt-2 card" onClick={(e) => e.stopPropagation()}>
+            <div key={ind} className="mt-2 card" onClick={(e) => e.stopPropagation()}>
               <div className="card-body">
                 <h5 className="card-title pointer" onClick={(e) => this.toggleFeature(e, ind)}><i className={`fa fa-chevron-${this.state.features[ind] ? 'down' : 'right'}`}></i> {text}</h5>
                 {this.state.features[ind] ?
-                  links.map(link => <p className="card-text">{link}</p>)
+                  links.map((link, linkIndex) => <p key={linkIndex} className="card-text">{link}</p>)
                 : null}
               </div>
             </div>
@@ -129,24 +210,38 @@ class App extends Component {
       }
     }
     else if (index !== 1 && index !== 2) {
-      return texts.map((text, ind) => <p key={ind} className="card-text">{text}</p>)
+      if (index === 8) {
+        return texts.map((text, ind, arr) => {
+          if (ind === arr.length - 1) {
+            return <p key={ind} className="card-text text-center">{text}</p>
+          }
+          else {
+            return <p key={ind} className="card-text">{text}</p>
+          }
+        });
+      }
+      else {
+        return texts.map((text, ind) => <p key={ind} className="card-text">{text}</p>)
+      }
     }
     return null;
   }
 
   renderComponent = (header, index) => {
+    let image = this.state.images[index];
     return (
       <div className="row h-100" style={{backgroundColor: "#ffeb3b"}}>
-        <div className="col-4 h-100">
-          {this.state.images[index]}
+        <div className={`col-${image ? '4' : '2'} h-100`}>
+          {image}
         </div>
-        <div className="col-6 p-5 h-100">
+        <div className={`col-${image ? '6' : '8'} p-5 h-100`}>
           <div className="card" onClick={(e) => e.stopPropagation()}>
             <div className="card-body">
               <h2 className="card-title">{header}</h2>
               {this.renderTexts(TEXTS[index], index, true)}
             </div>
           </div>
+          {this.renderLogos(index)}
           {this.renderTexts(TEXTS[index], index, false)}
         </div>
       </div>
