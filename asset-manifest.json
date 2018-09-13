@@ -1,8 +1,19 @@
 {
-  "main.css": "static/css/main.d83a0423.css",
-  "main.css.map": "static/css/main.d83a0423.css.map",
-  "main.js": "static/js/main.d0a1e71f.js",
-  "main.js.map": "static/js/main.d0a1e71f.js.map",
+  "main.css": "static/css/main.1b90467a.css",
+  "main.css.map": "static/css/main.1b90467a.css.map",
+  "main.js": "static/js/main.2eb248ca.js",
+  "main.js.map": "static/js/main.2eb248ca.js.map",
   "static\\media\\General.png": "static/media/General.43fde50a.png",
-  "static\\media\\Hobbies.png": "static/media/Hobbies.bd0a93e8.png"
+  "static\\media\\Hobbies.png": "static/media/Hobbies.bd0a93e8.png",
+  "static\\media\\angular-icon-1.svg": "static/media/angular-icon-1.48ae79d9.svg",
+  "static\\media\\c.svg": "static/media/c.5be9bde4.svg",
+  "static\\media\\electron-4.svg": "static/media/electron-4.c62f629e.svg",
+  "static\\media\\garry-s-mod.svg": "static/media/garry-s-mod.4af57f75.svg",
+  "static\\media\\lua.svg": "static/media/lua.33743237.svg",
+  "static\\media\\nodejs.svg": "static/media/nodejs.a22a4241.svg",
+  "static\\media\\python-5.svg": "static/media/python-5.146716bd.svg",
+  "static\\media\\rails-1.svg": "static/media/rails-1.251beda2.svg",
+  "static\\media\\react.svg": "static/media/react.4009eef3.svg",
+  "static\\media\\redux.svg": "static/media/redux.aa0a3376.svg",
+  "static\\media\\vue-9.svg": "static/media/vue-9.60dfaadb.svg"
 }
