@@ -59,13 +59,11 @@ export const TEXTS = [
     "Since I believed at the time that Python was too 'slow' for running the Mandelbrot renderer, I decided to learn C++. It led me do the same kind of tests that I had done in Python, but with C++.",
     "For rendering, I first tried to use GDL which is the one that Windows uses by default. However, I wanted something more advanced (go figure), so I learned how to work with Direct2D. That's a subset of Directx10, which actual game companies used to make games used at the time.",
     "I did try to make the Mandelbrot renderer in C++, and the single-threaded version worked great. However I couldn't make the multithreading work properly.",
-    "At the time I wanted to make a 2D RPG game, so I spent around half a year working on a 2D-Game engine. That, in the end, amounted only to a simple map editor with some character editing. I did however do a good job with the actual menu system used in the editor. You could even make custom skins for the menu UI.",
     "Looking back now, some of the things I tried to do in Python ended up being made in C++, like the Maze generator. I tried that in Python but failed, but in C++ I succeeded. I guess the experience really does stack up.",
   ],
   [
     "During my first internship, I stumbled on web development for the first time. We did two projects in Wordpress, which weren't that impressive by themselves. However, they did spark an inspiration in me to try to get into Web Development.",
-    "After my internship finished, I decided to look for Freelancer jobs on freelancer.com, a website where freelancers can look for jobs. I managed to land a job with a medium-sized company, that required some custom front-end work done.",
-    "They were very impressed by it, so I got some more work from them. This time a private web app, so I used a PHP framework called CodeIgniter. Using PHP was no problem, as I had done some small scripts with it during my time with Garry's Mod.",
+    "After my internship finished, I decided to look for Freelancer jobs on freelancer.com, a website where freelancers can look for jobs. I managed to land a job with a medium-sized company, that required some custom front-end work done. They were very impressed by it, so I got some more work from them.",
     "As the years went by, I had used another PHP framework called CakePHP. I found out about client-side frameworks like Angular and studied them. I also experimented on using Ruby on Rails, but that didn't go that well.",
     "Currently I'm using NodeJS and React primarily. I do have one hobby project where I use VueJS, but otherwise I use React. I'm currently doing some work with Firebase and AWS, as those are proving to be useful on a financial basis.",
   ],
@@ -80,6 +78,6 @@ export const TEXTS = [
     "I've been doing cycling since I was a kid. I had to drive my bicycle everyday to school and that was my only source of exercise outside of school. I do like cycling, don't get me wrong. I still like to go out on a stroll every now and then.",
     "We've always had a dog in our family. It's always lovely to play around with a dog.",
     "Recently I've started doing Yoga and I also started learning how to play the Piano. I also play board games with my friends. it's always a pleasure to spend some time with friends.",
-    <img src={Hobbies} className="img-fluid w-50 m-5" alt="Hobbies" />,
+    <img src={Hobbies} className="img-fluid w-50 m-2" alt="Hobbies" />,
   ]
 ]

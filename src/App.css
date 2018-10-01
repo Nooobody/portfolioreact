@@ -21,8 +21,16 @@ p, a {
   cursor: pointer;
 }
 
-@media screen and (max-width: 800px) {
-  .sidemenu {
-    display: none;
+@media screen and (max-width: 960px) {
+  p, a {
+    font-size: 14px;
+  }
+  h5.card-title {
+    font-size: 1rem;
+    padding: 0;
+    margin: 0;
+  }
+  .card-body {
+    overflow: auto;  
   }
 }

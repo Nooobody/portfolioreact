@@ -16,13 +16,16 @@ import lRedux from './logos/redux.svg';
 import lVue from './logos/vue-9.svg';
 import lRor from './logos/rails-1.svg';
 
+const MENUBREAKPOINT = 1350;
+const IMAGEBREAKPOINT = 960;
+
 function Square(index) {
 
   let makeSquare = (x, y, w) => {
     return <rect key={`${x} ${y}`} x={x} y={y} width={w} height={w} stroke="black" fill="transparent"></rect>
   }
 
-  let squares = [[200, 200, 100]];
+  let squares = [[100, 200, 100]];
   let actualSquares = [];
 
   for (let i = 1; i < index; i++) {
@@ -43,7 +46,7 @@ function Square(index) {
 
   actualSquares = actualSquares.concat(squares);
   return (<svg width="100%" height="100%">
-    <g transform="translate(00 50) scale(1.0)">
+    <g transform="translate(0 50) scale(1.0)">
       {actualSquares.map(square => makeSquare(square[0], square[1], square[2]))}
     </g>
   </svg>);
@@ -73,6 +76,7 @@ class App extends Component {
     ],
     experiences: {},
     features: {},
+    windowWidth: window.innerWidth,
     images: [
       null,
       null,
@@ -121,6 +125,17 @@ class App extends Component {
   componentDidMount() {
     let squares = this.state.images.filter(img => typeof(img) === 'number');
     this.generateSquare(squares);
+    window.addEventListener("resize", this.checkResize);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("resize", this.checkResize);
+  }
+
+  checkResize = () => {
+    this.setState({
+      windowWidth: window.innerWidth
+    });
   }
 
   generateSquare = (squares) => {
@@ -154,14 +169,14 @@ class App extends Component {
 
   renderLogos = (index) => {
     if (index === 7) {
-      return <i className="fa fa-question m-2" style={{fontSize: '60px'}}></i>
+      return <i className="fa fa-question m-2" style={{fontSize: this.state.windowWidth >= IMAGEBREAKPOINT ? '60px' : '30px'}}></i>
     }
 
     let logos = this.state.logos[index];
 
     if (logos) {
       return logos.map((logo, ind) => (
-        <img key={ind} className="m-1 mt-3" src={logo} alt="Logo" width="auto" height="50px" />
+        <img key={ind} className="m-1 mt-3" src={logo} alt="Logo" width="auto" height={this.state.windowWidth >= IMAGEBREAKPOINT ? '50px' : '30px'} />
       ));
     }
 
@@ -174,7 +189,7 @@ class App extends Component {
         return texts.map((text, ind, arr) => {
           if (ind % 2 === 1) return null;
           return (
-            <div key={ind} className="mt-2 card" onClick={(e) => e.stopPropagation()}>
+            <div key={ind} className="mt-2 card w-100" onClick={(e) => e.stopPropagation()}>
               <div className="card-body">
                 <h5 className="card-title pointer" onClick={(e) => this.toggleExp(e, ind)}><i className={`fa fa-chevron-${this.state.experiences[ind] ? 'down' : 'right'}`}></i> {text}</h5>
                 {this.state.experiences[ind] ? <p className="card-text">{arr[ind + 1]}</p> : null}
@@ -197,7 +212,7 @@ class App extends Component {
           }
 
           return (
-            <div key={ind} className="mt-2 card" onClick={(e) => e.stopPropagation()}>
+            <div key={ind} className="mt-2 card w-100" onClick={(e) => e.stopPropagation()}>
               <div className="card-body">
                 <h5 className="card-title pointer" onClick={(e) => this.toggleFeature(e, ind)}><i className={`fa fa-chevron-${this.state.features[ind] ? 'down' : 'right'}`}></i> {text}</h5>
                 {this.state.features[ind] ?
@@ -229,12 +244,28 @@ class App extends Component {
 
   renderComponent = (header, index) => {
     let image = this.state.images[index];
+    let imageWidth = image ? 4 : 2;
+    let textWidth = 8;
+
+    if (this.state.windowWidth < MENUBREAKPOINT) {
+      textWidth += 2;
+    }
+
+    if (this.state.windowWidth < IMAGEBREAKPOINT) {
+      textWidth += 2;
+    }
+    else if (image) {
+      textWidth -= 2;
+    }
+
     return (
       <div className="row h-100" style={{backgroundColor: "#ffeb3b"}}>
-        <div className={`col-${image ? '4' : '2'} h-100`}>
+        { this.state.windowWidth >= IMAGEBREAKPOINT ?
+        <div className={`col-${imageWidth} h-100`}>
           {image}
         </div>
-        <div className={`col-${image ? '6' : '8'} p-5 h-100`}>
+        : null }
+        <div className={`col-${textWidth} p-5 h-100`}>
           <div className="card" onClick={(e) => e.stopPropagation()}>
             <div className="card-body">
               <h2 className="card-title">{header}</h2>
@@ -256,6 +287,7 @@ class App extends Component {
             {this.renderComponent(header, index)}
           </Parallax.Layer>
         ))}
+        {this.state.windowWidth >= MENUBREAKPOINT ?
         <Parallax.Layer offset={0} speed={-1} factor={1} style={{pointerEvents: 'none'}}>
           <nav className="card nav flex-column sidemenu" style={{pointerEvents: 'initial'}}>
             {this.state.pageHeaders.map((header, index) => (
@@ -265,6 +297,7 @@ class App extends Component {
             ))}
           </nav>
         </Parallax.Layer>
+        : null }
       </Parallax>
     )
   }
