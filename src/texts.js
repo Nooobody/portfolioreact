@@ -40,7 +40,7 @@ export const TEXTS = [
     <a href="https://github.com/Nooobody/OldHobbyProjects/tree/master/Game%20of%20Life" onClick={stopProp}>Conway's Game of Life</a>,
     "Web-related Projects",
     <a href="https://github.com/Nooobody/portfolioreact" onClick={stopProp}>Source for this website</a>,
-    <a href="http://bc2standings.eu/Reikland" onClick={stopProp}>Blood bowl 2 Leagueboard (React & Firebase)</a>,
+    <a href="http://bc2standings.eu/Reikland" onClick={stopProp}>Blood bowl 2 Leagueboard (React, Redux, Firebase, AWS Lambda, Heroku, Socket.io and a Discord bot integration)</a>,
     <span><a href="http://spotty-string.surge.sh/" onClick={stopProp}>A real-time squad management game (React with Redux)</a> <a href="https://github.com/Nooobody/TextCombat" onClick={stopProp}>(Source)</a></span>,
     <span><a href="https://nooobody.github.io/Blox/" onClick={stopProp}>Blox/Space Break (Angular2)</a> <a href="https://github.com/Nooobody/Blox" onClick={stopProp}>(Source)</a></span>,
     <span><a href="http://impossible-side.surge.sh/" onClick={stopProp}>Neural Network TicTacToe AI (VueJS with Vuex)</a> <a href="https://github.com/Nooobody/tictactoeAI" onClick={stopProp}>(Source)</a></span>
